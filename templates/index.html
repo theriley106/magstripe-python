@@ -11,6 +11,9 @@
 .btn-secondaryz{
   transform:scale(1.5);
 }
+#logger {
+	visibility: hidden;
+}
 </style>
   </head>
 
@@ -55,7 +58,7 @@ var tempCount = -1;
 function keyListener(e) {
 	var code = e.keyCode || e.which,
       str = String.fromCharCode(code);
- 
+
   if(str === PASSCODE[current] || state === true){
     current++;
     logger.innerHTML += str;
@@ -89,7 +92,7 @@ function keyListener(e) {
     count = 0;
     logger.innerHTML = '';
   }
-  
+
 }
 
 document.addEventListener("keypress", keyListener);
