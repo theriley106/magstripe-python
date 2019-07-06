@@ -18,8 +18,10 @@ $ python app.py
 ...
 ```
 
-### Go to http://localhost:8000/
-
 <p align="center">
 <img src ="static/example.png">
 </p>
+<p align="center">Web App is now running on localhost:8000</p>
+<p align="center">Simply follow the instructions on the page to Read/Write to a magnetic stripe card</p>
+
+
