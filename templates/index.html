@@ -28,18 +28,72 @@
   <div class="col d-flex align-items-center justify-content-center" style="height:80vh;">
   		<div>
 
-		  <input class="form-control form-control-lg" type="text" placeholder="Track 1">
+		  <input class="form-control form-control-lg track" type="text" placeholder="Track 1">
 		  <br>
-		  <input class="form-control form-control-lg" type="text" placeholder="Track 2">
+		  <input class="form-control form-control-lg track" type="text" placeholder="Track 2">
 		  <br>
-		  <input class="form-control form-control-lg" type="text" placeholder="Track 3">
+		  <input class="form-control form-control-lg track" type="text" placeholder="Track 3">
             <img src="static/card.png" height=400px/>
             <br>
             	<h4 id="card-input" align="center" style="padding-top:10px;color:#fff5f5;">SWIPE CARD TO CONTINUE</h4>
         </div>
 </div>
 
+<div id="logger"></div>
+
 <script>
+
+var PASSCODE = ['%','B'],
+    current = 0,
+    logger = document.getElementById('logger');
+
+
+var state = 0;
+var count = 0;
+var tempCount = -1;
+
+function keyListener(e) {
+	var code = e.keyCode || e.which,
+      str = String.fromCharCode(code);
+ 
+  if(str === PASSCODE[current] || state === true){
+    current++;
+    logger.innerHTML += str;
+    console.log(current, PASSCODE.length);
+    if(current >= PASSCODE.length){
+    	if (state===false){
+    		document.getElementsByClassName('track')[0].value = "";
+    		document.getElementsByClassName('track')[1].value = "";
+    		document.getElementsByClassName('track')[2].value = "";
+    	}
+    	console.log("LARGER THAN");
+    	state = true;
+    	tempCount += 1;
+    	if (str === ";" || str==="^"){
+    		tempCount = 0;
+    		count += 1;
+    	}
+    	if (count > 2){
+    		logger.innerHTML = '';
+    		count = 0;
+    		state = false;
+    	}
+    	if (tempCount > 0){
+    	document.getElementsByClassName('track')[count].value += str;
+    }
+    	console.log("AYYY");
+      console.log('voi la');
+    }
+  } else {
+    current = 0;
+    count = 0;
+    logger.innerHTML = '';
+  }
+  
+}
+
+document.addEventListener("keypress", keyListener);
+
 // typing simulator 2k19
 function typeCreditCard() {
 	var card = '123213213215314212134';
