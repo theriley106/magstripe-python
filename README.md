@@ -12,7 +12,7 @@ $ pip install -r requirements.txt
 ### Start Flask Server
 
 ```bash
-$ python app.py
+$ ./start.sh
 
 * Running on http://0.0.0.0:8000/
 ...
@@ -26,7 +26,7 @@ $ python app.py
 
 ## Acknowledgements
 
-Magstripe-python is heavily based on the work from Damien Bobillot, who wrote the Python
+Magstripe-python is an extension of the work done by Damien Bobillot, who wrote the Python
 driver for the MSR605's serial interface and Raphael Michel who wrote the wrapper around the driver.
 
 As both Damien and Raphael's work is GPL, this is licensed under the terms of the GPL, as well.
