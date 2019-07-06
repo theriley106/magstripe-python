@@ -27,7 +27,7 @@
 		    <input type="radio" name="options" id="option1" autocomplete="off" checked>Read
 		  </label>
 		  <label class="btn btn-secondary">
-		    <input type="radio" name="options" id="option2" autocomplete="off">Write
+		    <input type="radio" name="options" id="option2" autocomplete="off" onclick="console.log('ayyyy');">Write
 		  </label>
 		</div>
 		</center>
@@ -46,6 +46,9 @@
 </div>
 
 <div id="logger"></div>
+
+<input id="source" />
+<div id="result"></div>
 
 <script>
 
@@ -123,10 +126,10 @@ function typeCreditCard() {
   <script type="text/javascript">
 	   var ws = new WebSocket("ws://localhost:8000/echo");
 	   ws.onopen = function() {
-	       ws.send("socket open");
+	   		ws.send(prev);
 	   };
 	   ws.onclose = function(evt) {
-	       alert("socket closed");
+          console.log("CLOSING");
 	   };
 	   ws.onmessage = function(evt) {
 	   		console.log(evt.data);
@@ -138,10 +141,82 @@ function typeCreditCard() {
 	   };
 	</script>
 
+
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+    var prev = "SET TO READ";
+  $(document).ready(function(){
+            $('input[id="option2"]').change(function(){
+                if($('#option2').prop('checked')){
+                    value = "";
+                    value += document.getElementsByClassName('track')[0].value;
+                    value += "<>";
+                    value += document.getElementsByClassName('track')[1].value;
+                    value += "<>";
+                    value += document.getElementsByClassName('track')[2].value;
+                    if (prev != value){
+                      ws.send(value);
+                      prev = value;
+                    }
+                    console.log("WRITING MODE");
+                }else{
+                    console.log("READING MODE");
+                }
+            });
+        });
+        $(document).ready(function(){
+            $('input[id="option1"]').change(function(){
+                if($('#option1').prop('checked')){
+                    prev = "SET TO READ";
+                    ws.send("SET TO READ");
+                }else{
+                    console.log("WRITING MODE");
+                }
+            });
+        });
+
+
+        setInterval(function(){ if($('#option1').prop('checked')){if ("SET TO REA" != prev){prev="SET TO READ";ws.send("SET TO READ");}} else{value = "";
+            value += document.getElementsByClassName('track')[0].value;
+            value += "<>";
+            value += document.getElementsByClassName('track')[1].value;
+            value += "<>";
+            value += document.getElementsByClassName('track')[2].value;
+            if (prev != value){
+              ws.send(value);
+              prev = value;
+            }
+            }; }, 500);
+        </script>
+    <script>
+
+        const $source1 = document.getElementsByClassName('track')[0];
+        const $source2 = document.getElementsByClassName('track')[1];
+        const $source3 = document.getElementsByClassName('track')[2];
+
+        const typeHandler = function(e) {
+          if ($('#option2').prop('checked')){
+            value = "";
+            value += document.getElementsByClassName('track')[0].value;
+            value += "<>";
+            value += document.getElementsByClassName('track')[1].value;
+            value += "<>";
+            value += document.getElementsByClassName('track')[2].value;
+            ws.send(value);
+          }
+        }
+
+        $source1.addEventListener('input', typeHandler) // register for oninput
+        $source2.addEventListener('input', typeHandler) // register for oninput
+        $source3.addEventListener('input', typeHandler) // register for oninput
+        $source1.addEventListener('propertychange', typeHandler) // for IE8
+        $source2.addEventListener('propertychange', typeHandler) // for IE8
+        $source3.addEventListener('propertychange', typeHandler) // for IE8
+  </script>
   </body>
 </html>
