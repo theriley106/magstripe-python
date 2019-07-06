@@ -24,7 +24,7 @@ $ python app.py
 <p align="center">Web App is now running on localhost:8000</p>
 <p align="center">Simply follow the instructions on the page to Read/Write to a magnetic stripe card</p>
 
-## Aknowledgements
+## Acknowledgements
 
 Magstripe-python is heavily based on the work from Damien Bobillot, who wrote the Python
 driver for the MSR605's serial interface and Raphael Michel who wrote the wrapper around the driver.
