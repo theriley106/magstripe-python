@@ -14,6 +14,9 @@
 #logger {
 	visibility: hidden;
 }
+#test {
+	visibility: hidden;
+}
 </style>
   </head>
 
@@ -88,6 +91,7 @@ function keyListener(e) {
       console.log('voi la');
     }
   } else {
+  	console.log(str);
     current = 0;
     count = 0;
     logger.innerHTML = '';
@@ -111,7 +115,28 @@ function typeCreditCard() {
 	typeWriter();
 }
 
+
+
 </script>
+
+<p id="test">Testing</p>
+  <script type="text/javascript">
+	   var ws = new WebSocket("ws://localhost:8000/echo");
+	   ws.onopen = function() {
+	       ws.send("socket open");
+	   };
+	   ws.onclose = function(evt) {
+	       alert("socket closed");
+	   };
+	   ws.onmessage = function(evt) {
+	   		console.log(evt.data);
+	   		obVal = JSON.parse(evt.data);
+	   		for (i=0; i<obVal.length; i++){
+	   			document.getElementsByClassName('track')[i].value = obVal[i];
+	   		}
+	        document.getElementById("test").innerHTML = evt.data;
+	   };
+	</script>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
