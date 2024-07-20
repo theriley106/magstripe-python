@@ -7,7 +7,6 @@ Tool for reading/writing to magnetic stripe cards that follow ISO/IEC 7813 stand
 
 ```bash
 $ pip install -r requirements.txt
-```
 
 ### Start Flask Server
 
