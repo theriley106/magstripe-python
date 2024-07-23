@@ -398,6 +398,4 @@ if __name__ == "__main__":
         elif args.bpi:
             dev.set_bpi(bpi1,bpi2,bpi3)
 
-    except Exception as e:
-        print e
-
+    
